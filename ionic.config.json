@@ -1,0 +1,8 @@
+{
+  "name": "AppLeterago",
+  "app_id": "b6b1f190",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
