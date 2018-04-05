@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar text-center>
+    <ion-title>
+      Login de Usuario
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <img src="assets/logo.png" alt="">
+    <ion-card-content>
+      <ion-list>
+
+        <ion-item>
+          <ion-label floating>Usuario</ion-label>
+          <ion-input type="email" [(ngModel)]="user"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Clave</ion-label>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+
+      </ion-list>
+      <button ion-button block (click)="Entrar()">Entrar</button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

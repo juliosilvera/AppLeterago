@@ -1,11 +1,640 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      About
-    </ion-title>
+  <ion-navbar text-center>
+    <img src="assets/logo.png" alt="" style="max-width: 200px">
   </ion-navbar>
 </ion-header>
 
+
 <ion-content padding>
 
+  <ion-item>
+    <ion-label floating>Local</ion-label>
+    <ion-select [(ngModel)]="local" (ionChange)="mostrarDatosLocal(local)">
+      <ion-option *ngFor="let local of locales" value="{{ local.id }}">{{ local.nombre_local }}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <p>Codigo del local: {{ loc.codigo }}</p>
+    <p text-wrap>Dirección: {{ loc.direccion }}</p>
+    <p>Sector: {{ loc.zona }}</p>
+  </ion-item>
+
+  <ion-card>
+    <ion-item-divider color="light" (click)="changeViewFarmacia()">FARMACIAS</ion-item-divider>
+    <ion-card-content *ngIf="farmacias">
+      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimento_promociones">
+        <ion-list-header text-wrap>
+          <h2>Conocimiento de Promociones</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>Nada de conocimiento de lo promocionado por Leterago del Ecuador y sus asesores</ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>1 promoción vigente en el mes</ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>2-3 promociones vigentes</ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>mas de 3 promociones </ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>conoce promociones y productos nuevos</ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>todas las promociones vigentes del mes</ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosFarmacias.conceptos_ptl">
+        <ion-list-header text-wrap>
+          <h2>Conceptos PTL</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>Nada de conocimiento</ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Sabe que existe el Plan</ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Sabe para que sirve el plan </ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Sabe que conlleva el concepto y el objetivo del Plan</ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Esta claro en como funciona en cada farmacia</ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce y aprovecha los beneficios del plan </ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimiento_laboratorios_participantes">
+        <ion-list-header text-wrap>
+          <h2>Conocimiento de Laboratorios Participantes</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>No conoce ningún laboratorio</ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce 1 lab</ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce 2-3 labs</ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce 3-6 labs</ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce 6-12 labs</ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce todos los labs</ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimiento_programas_capacitacion">
+        <ion-list-header text-wrap>
+          <h2>Conocimiento de Programas de Capacitación</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>No conoce nada de programas de capacitación </ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Sabe de la existencia de un programa</ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce como ingresar al programa</ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce un tema del programa</ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce Claramente como funciona el programa</ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Usa y ha cursado el programa</ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimiento_beneficios">
+        <ion-list-header text-wrap>
+          <h2>Conoce los beneficios</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>No sabe de los beneficios</ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>conoce un beneficio (premios)</ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce 2 beneficios  (premios y condiciones comerciales)</ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce 3 beneficios (premios, condiciones y promociones</ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Conoce varios beneficios ( sabe que es para ser competitivo)</ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>Usa el programa y a los asesores para obtener un crecimiento comercial </ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-item-divider color="light" (click)="changeViewZonaDescuento()">ZONA DE DESCUENTOS</ion-item-divider>
+    <ion-card-content *ngIf="zonaDescuento">
+      <ion-list radio-group [(ngModel)]="datosZonaDescuento.zona_descuento">
+        <ion-list-header text-wrap>
+            <h2>ZONA DE DESCUENTO</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>
+            No existe zona
+          </ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Hay un espacio sin Branding
+          </ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Hay un espacio pequeño
+          </ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Hay un espacio medio
+          </ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Hay un espacio grande
+          </ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Exhibición especial en la farmacia
+          </ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosZonaDescuento.zona_clave" *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0">
+        <ion-list-header text-wrap>
+          <h2>Zona Caliente</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>
+            Esta en una zona fría
+          </ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Es zona fría pero es mas visible
+          </ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Esta en una zona fría pero se puede hacer tibia
+          </ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Esta en una zona tibia
+          </ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Esta en una zona caliente
+          </ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Esta en la mejor zona de la farmacia
+          </ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosZonaDescuento.visualizacion"  *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0">
+        <ion-list-header text-wrap>
+            <h2>Visualización</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>
+            No se ve nada
+          </ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            buscando se la ve vanamente
+          </ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            esta presente pero si no se pasea por la farmacia no se la ve
+          </ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Si se busca se la ve bien
+          </ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Se la visualiza completamente ya ingresado en la farmacia
+          </ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Se ve desde cualquier punto de la farmacia
+          </ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosZonaDescuento.organizacion_productos" *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0">
+        <ion-list-header text-wrap>
+            <h2>Organización de productos</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>
+            No hay productos colocados
+          </ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Hay productos de Leterago y de competencia
+          </ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            hay productos de Leterago y pero no son PTL
+          </ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Hay solo productos de Leterago pero desorganizados
+          </ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Hay productos organizados en categorías
+          </ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            hay un correcto uso del Planograma
+          </ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosZonaDescuento.espacio_uso" *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0">
+        <ion-list-header text-wrap>
+          <h2>Espacio de Uso</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>
+            una bandeja
+          </ion-label>
+          <ion-radio value="Pequeño"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            2 - 3 bandejas
+          </ion-label>
+          <ion-radio value="Mediano"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            3-4 bandejas
+          </ion-label>
+          <ion-radio value="Grande"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            0
+          </ion-label>
+          <ion-radio value="No tiene"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <button ion-button icon-left (click)="presentActionSheet('zona' + datosPOP.length + '_', 'zona')" *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0">
+        <ion-icon name="camera"></ion-icon>Seleccione Imagen
+      </button>
+
+      <ion-list>
+        <ion-item-sliding *ngFor="let item of fotosZona; let i = index">
+          <ion-item>
+            <img [src]="pathForImage(item)" alt="">
+          </ion-item>
+          <ion-item-options side="right">
+            <button ion-button color="danger" (click)="borrarImagenZona(i)">
+              <ion-icon name="trash"></ion-icon>
+              Borrar
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-item-divider color="light" (click)="changeViewAsesor()">CALIFICACION ASESOR COMERCIAL</ion-item-divider>
+    <ion-card-content *ngIf="asesor">
+      <ion-list radio-group [(ngModel)]="datosAsesor.programa_ptl">
+        <ion-list-header text-wrap>
+            <h2>Programa PTL</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>
+            Nunca le ha comentado del plan
+          </ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le explico una vez del plan
+          </ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le ha explicado un par de veces del Plan
+          </ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le habla de vez en cuando del plan
+          </ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le habla varias veces del plan y beneficios
+          </ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le explica y habla en cada visita
+          </ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosAsesor.zona_descuento">
+        <ion-list-header text-wrap>
+            <h2>Zona de Descuento</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>
+            Nunca le ha comentado de la zona de descto
+          </ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le explico una sola vez
+          </ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le ha explicado dos veces
+          </ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le explica de vez en cuando
+          </ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le explica en cada visita
+          </ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le explica cmo hacerla y capacita de la misma
+          </ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosAsesor.capacitaciones">
+        <ion-list-header text-wrap>
+            <h2>Capacitación</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>
+            Nunca le capacita o habla de temas
+          </ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Una sola vez le capacito en relación a objetivos comerciales
+          </ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Alguna vez gestiono una capacitación formal
+          </ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Se da minimo de 5 min para explicar temas comerciales
+          </ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Gestiona capacitaciones para usted y colaboradores
+          </ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Gestiona un proceso continuo de temas de capacitación
+          </ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosAsesor.penetracion_marcas">
+        <ion-list-header text-wrap>
+            <h2>Penetracion de Marcas</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>
+            no le habla de marcas participantes
+          </ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            conoce de las marcas de algunos productos
+          </ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Conoce marcas de algunos productos y para que sirven
+          </ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            conoce marcas, su uso y aprovecha su espacio
+          </ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Conoce marcas, uso y genera una promoción
+          </ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Conoce marcar, promociona y recomienda en primer lugar
+          </ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list radio-group [(ngModel)]="datosAsesor.visitas_asesor">
+        <ion-list-header text-wrap>
+            <h2>Visitas del Asesor</h2>
+        </ion-list-header>
+        <ion-item>
+          <ion-label text-wrap>
+            nunca le visita
+          </ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            solo le llama por telefono para hacer pedido
+          </ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le visita una vez al mes
+          </ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le visita dos veces al mes
+          </ion-label>
+          <ion-radio value="3"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            Le vista tres o mas veces al mes
+          </ion-label>
+          <ion-radio value="4"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap>
+            se contacta por varios medios y seguidamente
+          </ion-label>
+          <ion-radio value="5"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-item-divider color="light" (click)="changeViewPOP()">Material POP</ion-item-divider>
+    <ion-card-content *ngIf="pop">
+      <button ion-button icon-left (click)="presentActionSheet('pop' + datosPOP.length + '_', 'pop')">
+        <ion-icon name="camera"></ion-icon>Seleccione Imagen
+      </button>
+      <ion-list>
+        <ion-item-sliding *ngFor="let item of datosPOP; let i = index">
+          <ion-item>
+            <img [src]="pathForImage(item)" alt="">
+          </ion-item>
+          <ion-item-options side="right">
+            <button ion-button color="danger" (click)="borrarImagenPOP(i)">
+              <ion-icon name="trash"></ion-icon>
+              Borrar
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <button ion-button block (click)="guardarDatos()" *ngIf="mostrarBoton">Guardar Datos</button>
+<button ion-button block (click)="obtenerCoordenadas()" *ngIf="getCoords">Obtener Coordenadas</button>
 </ion-content>
