@@ -36,7 +36,10 @@ export class HomePage {
         }
       }
     });
-    this.user = this.store.user;
+    this.store.cargar_usuario().then(() => {
+      this.user = this.store.user;
+    });
+
 
   }
 

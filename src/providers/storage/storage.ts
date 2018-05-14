@@ -53,7 +53,9 @@ export class StorageProvider {
     let promesa = new Promise((resolve, reject) => {
       this.store.ready().then(()=>{
         this.store.set('locales', locales);
-        resolve();
+        this.cargar_locales().then(()=>{
+          resolve();
+        });
       });
     });
 
@@ -118,6 +120,19 @@ export class StorageProvider {
             resolve(false);
           }
 
+        });
+      });
+    });
+
+    return promesa;
+  }
+
+  borrarEncuestas()
+  {
+    let promesa = new Promise((resolve, reject) => {
+      this.store.ready().then(() => {
+        this.store.remove('encuestas').then(()=>{
+          resolve();
         });
       });
     });

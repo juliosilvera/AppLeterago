@@ -23,8 +23,8 @@
   <ion-card>
     <ion-item-divider color="light" (click)="changeViewFarmacia()">FARMACIAS</ion-item-divider>
     <ion-card-content *ngIf="farmacias">
-      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimento_promociones">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimento_promociones" class="list">
+        <ion-list-header text-wrap class="header">
           <h2>Conocimiento de Promociones</h2>
         </ion-list-header>
         <ion-item>
@@ -53,8 +53,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosFarmacias.conceptos_ptl">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosFarmacias.conceptos_ptl" class="list">
+        <ion-list-header text-wrap class="header">
           <h2>Conceptos PTL</h2>
         </ion-list-header>
         <ion-item>
@@ -83,8 +83,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimiento_laboratorios_participantes">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimiento_laboratorios_participantes" class="list">
+        <ion-list-header text-wrap class="header">
           <h2>Conocimiento de Laboratorios Participantes</h2>
         </ion-list-header>
         <ion-item>
@@ -113,8 +113,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimiento_programas_capacitacion">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimiento_programas_capacitacion" class="list">
+        <ion-list-header text-wrap class="header">
           <h2>Conocimiento de Programas de Capacitación</h2>
         </ion-list-header>
         <ion-item>
@@ -143,8 +143,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimiento_beneficios">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosFarmacias.conocimiento_beneficios" class="list">
+        <ion-list-header text-wrap class="header">
           <h2>Conoce los beneficios</h2>
         </ion-list-header>
         <ion-item>
@@ -178,8 +178,8 @@
   <ion-card>
     <ion-item-divider color="light" (click)="changeViewZonaDescuento()">ZONA DE DESCUENTOS</ion-item-divider>
     <ion-card-content *ngIf="zonaDescuento">
-      <ion-list radio-group [(ngModel)]="datosZonaDescuento.zona_descuento">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosZonaDescuento.zona_descuento" class="list">
+        <ion-list-header text-wrap class="header">
             <h2>ZONA DE DESCUENTO</h2>
         </ion-list-header>
         <ion-item>
@@ -220,8 +220,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosZonaDescuento.zona_clave" *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosZonaDescuento.zona_clave" *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0" class="list">
+        <ion-list-header text-wrap class="header">
           <h2>Zona Caliente</h2>
         </ion-list-header>
         <ion-item>
@@ -262,8 +262,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosZonaDescuento.visualizacion"  *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosZonaDescuento.visualizacion"  *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0" class="list">
+        <ion-list-header text-wrap class="header">
             <h2>Visualización</h2>
         </ion-list-header>
         <ion-item>
@@ -304,8 +304,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosZonaDescuento.organizacion_productos" *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosZonaDescuento.organizacion_productos" *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0" class="list">
+        <ion-list-header text-wrap class="header">
             <h2>Organización de productos</h2>
         </ion-list-header>
         <ion-item>
@@ -346,8 +346,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosZonaDescuento.espacio_uso" *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosZonaDescuento.espacio_uso" *ngIf="datosZonaDescuento.zona_descuento && datosZonaDescuento.zona_descuento != 0" class="list">
+        <ion-list-header text-wrap class="header">
           <h2>Espacio de Uso</h2>
         </ion-list-header>
         <ion-item>
@@ -401,8 +401,8 @@
   <ion-card>
     <ion-item-divider color="light" (click)="changeViewAsesor()">CALIFICACION ASESOR COMERCIAL</ion-item-divider>
     <ion-card-content *ngIf="asesor">
-      <ion-list radio-group [(ngModel)]="datosAsesor.programa_ptl">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosAsesor.programa_ptl" class="list">
+        <ion-list-header text-wrap class="header">
             <h2>Programa PTL</h2>
         </ion-list-header>
         <ion-item>
@@ -443,8 +443,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosAsesor.zona_descuento">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosAsesor.zona_descuento" class="list">
+        <ion-list-header text-wrap class="header">
             <h2>Zona de Descuento</h2>
         </ion-list-header>
         <ion-item>
@@ -485,8 +485,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosAsesor.capacitaciones">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosAsesor.capacitaciones" class="list">
+        <ion-list-header text-wrap class="header">
             <h2>Capacitación</h2>
         </ion-list-header>
         <ion-item>
@@ -527,8 +527,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosAsesor.penetracion_marcas">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosAsesor.penetracion_marcas" class="list">
+        <ion-list-header text-wrap class="header">
             <h2>Penetracion de Marcas</h2>
         </ion-list-header>
         <ion-item>
@@ -569,8 +569,8 @@
         </ion-item>
       </ion-list>
 
-      <ion-list radio-group [(ngModel)]="datosAsesor.visitas_asesor">
-        <ion-list-header text-wrap>
+      <ion-list radio-group [(ngModel)]="datosAsesor.visitas_asesor" class="list">
+        <ion-list-header text-wrap class="header">
             <h2>Visitas del Asesor</h2>
         </ion-list-header>
         <ion-item>

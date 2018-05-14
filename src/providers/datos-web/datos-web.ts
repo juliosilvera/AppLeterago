@@ -6,6 +6,7 @@ import { LoadingController, ToastController } from "ionic-angular";
 import { StorageProvider } from "../storage/storage";
 import { TabsPage } from "../../pages/tabs/tabs";
 
+
 @Injectable()
 export class DatosWebProvider {
 
@@ -16,7 +17,6 @@ export class DatosWebProvider {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private store: StorageProvider,
-
   ) {
 
   }
@@ -105,6 +105,8 @@ export class DatosWebProvider {
     return promesa;
 
   }
+
+  
 
   mensaje(m)
   {

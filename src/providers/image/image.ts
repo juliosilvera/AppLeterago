@@ -3,8 +3,11 @@ import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
-import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
+import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { URL } from "../../data/datos";
+import { DatosWebProvider } from '../datos-web/datos-web';
+import { StorageProvider } from '../storage/storage';
+import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 
 
@@ -30,11 +33,12 @@ export class ImageProvider {
     public toastCtrl: ToastController,
     public platform: Platform,
     public loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+    private _dw: DatosWebProvider,
+    private store: StorageProvider
   ) {
     console.log('Hello ImageProvider Provider');
-    this.loading = this.loadingCtrl.create({
-      content: this.message
-    });
+
   }
 
   public presentActionSheet(imagen, tipo) {
@@ -142,60 +146,84 @@ startSendingImages(tipo, sc, sc2)
   if(tipo == 'zona')
   {
     this.message = 'Enviando imagenes de Zonas...';
-    this.loading.present();
     this.sendImages(tipo, sc, sc2);
   }else{
     this.message = 'Enviando imagenes de Material POP...';
-    this.loading.present();
     this.sendImages(tipo, sc, sc2);
   }
 }
 
 public sendImages(tipo, sc, sc2)
 {
+
   let startCount = sc;
   let startCount2 = sc2;
   if(tipo == 'zona')
   {
       let count = this.encuestas.length - 1;
       let count2 = this.encuestas[startCount].fotosZona.length - 1;
-     this.uploadImage(this.encuestas[startCount].fotosZona[sc2], tipo, this.encuestas[startCount].local.id).then(() => {
-       startCount2++;
-       if (startCount2 <= count2) {
-         this.sendImages('zona', startCount, startCount2);
-       }else{
-         startCount++;
-         if (startCount <= count) {
-           this.sendImages('zona', startCount, 0);
+      let count3 = this.encuestas[startCount].fotosZona.length;
+      this.showLoading(startCount, count);
+     if(count3 > 0)
+     {
+       this.uploadImage(this.encuestas[startCount].fotosZona[sc2], tipo, this.encuestas[startCount].local.id).then(() => {
+         startCount2++;
+         if (startCount2 <= count2) {
+           this.sendImages('zona', startCount, startCount2);
          }else{
-           this.loading.dismiss();
-           this.startSendingImages('pop', 0, 0);
+           startCount++;
+           if (startCount <= count) {
+             this.sendImages('zona', startCount, 0);
+           }else{
+             this.showLoading(startCount, count).then(() => {
+               this.showMessage('Imagenes de Zonas Enviadas!');
+               this.startSendingImages('pop', 0, 0);
+             });
+
+           }
          }
-       }
-     });
+       });
+     }else{
+       this.startSendingImages('pop', 0, 0);
+     }
   }else{
     let count = this.encuestas.length - 1;
     let count2 = this.encuestas[startCount].fotosPOP.length - 1;
-    this.uploadImage(this.encuestas[startCount].fotosPOP[sc2], tipo, this.encuestas[startCount].local.id).then(() => {
-      startCount2++;
-      if (startCount2 <= count2) {
-        this.sendImages('pop', startCount, startCount2);
-      }else{
-        startCount++;
-        if (startCount <= count) {
-          this.sendImages('pop', startCount, 0);
+    let count3 = this.encuestas[startCount].fotosPOP.length;
+    this.showLoading(startCount, count);
+    if(count3 > 0)
+    {
+      this.uploadImage(this.encuestas[startCount].fotosPOP[sc2], tipo, this.encuestas[startCount].local.id).then(() => {
+        startCount2++;
+        if (startCount2 <= count2) {
+          this.sendImages('pop', startCount, startCount2);
         }else{
-          this.loading.dismiss();
+          startCount++;
+          if (startCount <= count) {
+            this.sendImages('pop', startCount, 0);
+          }else{
+            this.showLoading(startCount, count).then(() => {
+              this.showMessage('Imagenes de POP Enviadas!');
+              this._dw.getLocales().then(() => {
+                this.store.borrarEncuestas().then(() => {});
+              });
+            });
+
+          }
         }
-      }
-    });
+      });
+    }else{
+      this._dw.getLocales().then(() => {
+        this.store.borrarEncuestas().then(() => {});
+      });
+    }
   }
 }
 
 public uploadImage(filename, tipo, local) {
   let promesa = new Promise((resolve, reject) => {
     // Destination URL
-    var url = this.url + "uploadPhoto";
+    var url = this.url + "uploadPhotos";
 
     // File for Upload
     var targetPath = this.pathForImage(filename);
@@ -216,18 +244,61 @@ public uploadImage(filename, tipo, local) {
     const fileTransfer: TransferObject = this.transfer.create();
 
     // Use the FileTransfer to upload the image
-    fileTransfer.upload(targetPath, url, options).then(data => {
-
-    resolve(true);
-
+    fileTransfer.upload(targetPath, url, options).then((data:any) => {
+      resolve(true);
     }, err => {
+      console.log(JSON.stringify(err));
       resolve(false);
-
     });
   });
 
   return promesa;
 
+}
+
+showLoading(a, b)
+{
+  let promesa = new Promise((resolve, reject)=>{
+    if(a == 0)
+    {
+      this.loading = this.loadingCtrl.create({
+        content: this.message
+      });
+      this.loading.present();
+    }
+    if(a >= b)
+    {
+      this.loading.dismissAll();
+    }
+    resolve();
+  });
+
+  return promesa;
+
+
+}
+
+postImages(archivos:any)
+{
+  let promesa = new Promise((resolve, reject) => {
+    let url = this.url + "uploadImages";
+    let data = new FormData();
+    for(let i = 0; i < archivos.length; i++)
+    {
+      
+    }
+
+  });
+
+  return promesa;
+}
+
+showMessage(m)
+{
+  this.toastCtrl.create({
+    message: m,
+    duration: 1000
+  }).present();
 }
 
 }
